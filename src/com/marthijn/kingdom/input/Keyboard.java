@@ -29,5 +29,21 @@ public class Keyboard implements KeyListener {
 	public void keyTyped(KeyEvent e) {
 		
 	}
+	
+	public boolean getUp() {
+		return this.up;
+	}
+	
+	public boolean getDown() {
+		return this.down;
+	}
+	
+	public boolean getLeft() {
+		return this.left;
+	}
+	
+	public boolean getRight() {
+		return this.right;
+	}
 
 }
