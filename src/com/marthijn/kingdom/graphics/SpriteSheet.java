@@ -10,6 +10,8 @@ public class SpriteSheet {
 	private String path;
 	private final int SIZE;
 	public int[] pixels;
+	
+	public static SpriteSheet tiles = new SpriteSheet("/spritesheets/spritesheet_01.png", 256);
 
 	public SpriteSheet(String path, int size) {
 		this.path = path;
@@ -28,11 +30,11 @@ public class SpriteSheet {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public int getSize() {
 		return this.SIZE;
 	}
-	
+
 	public int getPixels(int index) {
 		return this.pixels[index];
 	}
