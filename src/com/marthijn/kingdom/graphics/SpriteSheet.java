@@ -28,5 +28,13 @@ public class SpriteSheet {
 			e.printStackTrace();
 		}
 	}
+	
+	public int getSize() {
+		return this.SIZE;
+	}
+	
+	public int getPixels(int index) {
+		return this.pixels[index];
+	}
 
 }
