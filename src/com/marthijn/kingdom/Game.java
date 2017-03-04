@@ -11,6 +11,7 @@ import java.awt.image.DataBufferInt;
 import javax.swing.JFrame;
 
 import com.marthijn.kingdom.graphics.Screen;
+import com.marthijn.kingdom.input.Keyboard;
 
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
@@ -25,6 +26,7 @@ public class Game extends Canvas implements Runnable {
 	private boolean running = false;
 
 	private Screen screen;
+	private Keyboard key;
 
 	private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
@@ -32,9 +34,13 @@ public class Game extends Canvas implements Runnable {
 	public Game() {
 		Dimension size = new Dimension(width * scale, height * scale);
 		setPreferredSize(size);
+		setFocusable(true);
 
 		screen = new Screen(width, height);
 		frame = new JFrame();
+		
+		key = new Keyboard();
+		addKeyListener(key);
 	}
 
 	public synchronized void start() {
@@ -79,9 +85,14 @@ public class Game extends Canvas implements Runnable {
 		}
 		stop();
 	}
-
+	
+	int x, y = 0;
 	public void update() {
-
+		key.update();
+		if (key.up) y--;
+		if (key.down) y++;
+		if (key.left) x--;
+		if (key.right) x++;
 	}
 
 	public void render() {
@@ -92,7 +103,7 @@ public class Game extends Canvas implements Runnable {
 		}
 
 		screen.clear();
-		screen.render();
+		screen.render(x, y);
 		for (int i = 0; i < pixels.length; i++) {
 			pixels[i] = screen.pixels[i];
 		}
