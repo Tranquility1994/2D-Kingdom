@@ -7,12 +7,11 @@ import com.marthijn.kingdom.level.tile.Tile;
 public class Screen {
 
 	private int width, height;
+	public int xOffset, yOffset;
 	public int[] pixels;
 	public final int MAP_SIZE = 64;
 	public final int MAP_SIZE_MASK = MAP_SIZE - 1;
-
 	public int[] tiles = new int[MAP_SIZE * MAP_SIZE];
-
 	private Random random = new Random();
 
 	public Screen(int width, int height) {
@@ -40,30 +39,25 @@ public class Screen {
 		return this.height;
 	}
 
-	public void render(int xOffset, int yOffset) {
-		for (int y = 0; y < height; y++) {
-			int yp = y + yOffset;
-			if (yp < 0 || yp >= height)
-				continue;
-			for (int x = 0; x < width; x++) {
-				int xp = x + xOffset;
-				if (xp < 0 || xp >= width)
-					continue;
-				pixels[xp + yp * width] = Sprite.grassSprite.getPixels((x & 15) + (y & 15) * Sprite.grassSprite.getSize());
-			}
-		}
-	}
-
 	public void renderTile(int xp, int yp, Tile tile) {
+		xp -= xOffset;
+		yp -= yOffset;
 		for (int y = 0; y < tile.sprite.getSize(); y++) {
 			int ya = y + yp;
 			for (int x = 0; x < tile.sprite.getSize(); x++) {
 				int xa = x + xp;
-				if (xa < 0 || xa >= width || y < 0 || y >= height)
+				if (xa < -tile.sprite.getSize() || xa >= width || ya < 0 || ya >= height)
 					break;
+				if (xa < 0)
+					xa = 0;
 				pixels[xa + ya * width] = tile.sprite.getPixels(x + y * tile.sprite.getSize());
 			}
 		}
+	}
+
+	public void setOffset(int xOffset, int yOffset) {
+		this.xOffset = xOffset;
+		this.yOffset = yOffset;
 	}
 
 }
