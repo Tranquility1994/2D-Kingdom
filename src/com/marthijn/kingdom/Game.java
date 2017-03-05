@@ -1,7 +1,6 @@
 package com.marthijn.kingdom;
 
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
@@ -38,7 +37,7 @@ public class Game extends Canvas implements Runnable {
 
 		screen = new Screen(width, height);
 		frame = new JFrame();
-		
+
 		key = new Keyboard();
 		addKeyListener(key);
 	}
@@ -85,14 +84,19 @@ public class Game extends Canvas implements Runnable {
 		}
 		stop();
 	}
-	
+
 	int x, y = 0;
+
 	public void update() {
 		key.update();
-		if (key.getUp()) y--;
-		if (key.getDown()) y++;
-		if (key.getLeft()) x--;
-		if (key.getRight()) x++;
+		if (key.getUp())
+			y++;
+		if (key.getDown())
+			y--;
+		if (key.getLeft())
+			x++;
+		if (key.getRight())
+			x--;
 	}
 
 	public void render() {
