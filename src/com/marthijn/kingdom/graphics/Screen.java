@@ -2,6 +2,8 @@ package com.marthijn.kingdom.graphics;
 
 import java.util.Random;
 
+import com.marthijn.kingdom.level.tile.Tile;
+
 public class Screen {
 
 	private int width, height;
@@ -40,6 +42,18 @@ public class Screen {
 				if (xp < 0 || xp >= width)
 					continue;
 				pixels[xp + yp * width] = Sprite.grass.getPixels((x & 15) + (y & 15) * Sprite.grass.getSize());
+			}
+		}
+	}
+
+	public void renderTile(int xp, int yp, Tile tile) {
+		for (int y = 0; y < tile.sprite.getSize(); y++) {
+			int ya = y + yp;
+			for (int x = 0; x < tile.sprite.getSize(); x++) {
+				int xa = x + xp;
+				if (xa < 0 || xa >= width || y < 0 || y >= height)
+					break;
+				pixels[xa + ya * width] = tile.sprite.getPixels(x + y * tile.sprite.getSize());
 			}
 		}
 	}
