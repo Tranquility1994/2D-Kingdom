@@ -10,7 +10,7 @@ public class SpriteSheet {
 	private String path;
 	private final int SIZE;
 	public int[] pixels;
-	
+
 	public static SpriteSheet tiles = new SpriteSheet("/spritesheets/spritesheet_01.png", 256);
 
 	public SpriteSheet(String path, int size) {
@@ -29,6 +29,10 @@ public class SpriteSheet {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public String getPath() {
+		return this.path;
 	}
 
 	public int getSize() {

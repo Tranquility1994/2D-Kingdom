@@ -25,7 +25,11 @@ public class Sprite {
 			}
 		}
 	}
-	
+
+	public int getSize() {
+		return this.SIZE;
+	}
+
 	public int getPixels(int index) {
 		return this.pixels[index];
 	}
