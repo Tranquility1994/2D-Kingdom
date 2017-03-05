@@ -1,6 +1,7 @@
 package com.marthijn.kingdom.level;
 
 import com.marthijn.kingdom.graphics.Screen;
+import com.marthijn.kingdom.level.tile.Tile;
 
 public class Level {
 
@@ -29,13 +30,22 @@ public class Level {
 	public void update() {
 
 	}
-	
-	private void time() {
-		
-	}
+
+	// private void time() {
+	//
+	// }
 
 	public void render(int xScroll, int yScroll, Screen screen) {
+		int x0 = xScroll >> 4;
+		int x1 = (xScroll + screen.getWidth()) >> 4;
+		int y0 = yScroll >> 4;
+		int y1 = (yScroll + screen.getHeight() >> 4);
+	}
 
+	public Tile getTile(int x, int y) {
+		if (tiles[x + y * width] == 0)
+			return Tile.grassTile;
+		return Tile.voidTile;
 	}
 
 }

@@ -32,6 +32,14 @@ public class Screen {
 		}
 	}
 
+	public int getWidth() {
+		return this.width;
+	}
+
+	public int getHeight() {
+		return this.height;
+	}
+
 	public void render(int xOffset, int yOffset) {
 		for (int y = 0; y < height; y++) {
 			int yp = y + yOffset;
@@ -41,7 +49,7 @@ public class Screen {
 				int xp = x + xOffset;
 				if (xp < 0 || xp >= width)
 					continue;
-				pixels[xp + yp * width] = Sprite.grass.getPixels((x & 15) + (y & 15) * Sprite.grass.getSize());
+				pixels[xp + yp * width] = Sprite.grassSprite.getPixels((x & 15) + (y & 15) * Sprite.grassSprite.getSize());
 			}
 		}
 	}
