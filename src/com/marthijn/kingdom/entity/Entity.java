@@ -7,7 +7,7 @@ import com.marthijn.kingdom.level.Level;
 
 public class Entity {
 
-	private int x, y;
+	public int x, y;
 	private boolean removed = false;
 	protected Level level;
 	protected final Random random = new Random();

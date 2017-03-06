@@ -9,6 +9,7 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
+import com.marthijn.kingdom.entity.mob.Player;
 import com.marthijn.kingdom.graphics.Screen;
 import com.marthijn.kingdom.input.Keyboard;
 import com.marthijn.kingdom.level.Level;
@@ -27,6 +28,7 @@ public class Game extends Canvas implements Runnable {
 	private boolean running = false;
 
 	private Level level;
+	private Player player;
 	private Screen screen;
 	private Keyboard key;
 
@@ -39,10 +41,11 @@ public class Game extends Canvas implements Runnable {
 		setFocusable(true);
 
 		screen = new Screen(width, height);
-		level = new RandomLevel(64, 64);
 		frame = new JFrame();
-
 		key = new Keyboard();
+		level = new RandomLevel(64, 64);
+		player = new Player(key);
+		
 		addKeyListener(key);
 	}
 
@@ -89,18 +92,9 @@ public class Game extends Canvas implements Runnable {
 		stop();
 	}
 
-	int x, y = 0;
-
 	public void update() {
 		key.update();
-		if (key.getUp())
-			y--;
-		if (key.getDown())
-			y++;
-		if (key.getLeft())
-			x--;
-		if (key.getRight())
-			x++;
+		player.update();
 	}
 
 	public void render() {
@@ -111,8 +105,11 @@ public class Game extends Canvas implements Runnable {
 		}
 
 		screen.clear();
-		level.render(x, y, screen);
-		
+		int xScroll = player.getX() - screen.getWidth() / 2;
+		int yScroll = player.getY() - screen.getHeight() / 2;
+		level.render(xScroll, yScroll, screen);
+		player.render(screen);
+
 		for (int i = 0; i < pixels.length; i++) {
 			pixels[i] = screen.pixels[i];
 		}
